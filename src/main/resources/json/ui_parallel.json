@@ -1,0 +1,33 @@
+[
+  {
+    "type": "switch",
+    "field": "limitMaxThread",
+    "title": "Limit max thread number",
+    "info": "",
+    "_fc_drag_tag": "switch",
+    "hidden": false,
+    "display": true,
+    "value": false,
+    "props": {
+      "activeText": "",
+      "inactiveText": ""
+    },
+    "control": [
+      {
+        "value": true,
+        "rule": [
+          {
+            "type": "inputNumber",
+            "field": "maxThreads",
+            "title": "Max threads",
+            "info": "",
+            "_fc_drag_tag": "inputNumber",
+            "hidden": false,
+            "display": true,
+            "value": 5
+          }
+        ]
+      }
+    ]
+  }
+]
