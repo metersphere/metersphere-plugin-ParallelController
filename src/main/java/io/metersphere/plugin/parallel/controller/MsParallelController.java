@@ -9,18 +9,21 @@ import io.metersphere.plugin.parallel.utils.ElementUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jorphan.collections.HashTree;
 import com.blazemeter.jmeter.controller.ParallelSampler;
 
 import java.util.LinkedList;
 import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class MsParallelController extends MsTestElement {
     public MsParallelController() {
 
     }
+
     private String clazzName = "io.metersphere.plugin.parallel.controller.MsParallelController";
 
     @JSONField(ordinal = 21)
@@ -44,8 +47,7 @@ public class MsParallelController extends MsTestElement {
                     el.toHashTree(groupTree, el.getHashTree(), config);
                 });
             }
-        }
-        else {
+        } else {
             LogUtil.error("Connect Sampler 生成失败");
             throw new RuntimeException("Connect Sampler生成失败");
         }
@@ -63,7 +65,10 @@ public class MsParallelController extends MsTestElement {
             parallelSampler.setProperty("MS-SCENARIO", JSON.toJSONString(id_names));
 
             parallelSampler.setEnabled(this.isEnable());
-            parallelSampler.setName(this.getName());
+            String name = ElementUtil.getParentName(this.getParent());
+            if (StringUtils.isNotEmpty(name)) {
+                parallelSampler.setName(this.getName() + ElementUtil.SEPARATOR + name);
+            }
             parallelSampler.setProperty(TestElement.GUI_CLASS, "com.blazemeter.jmeter.controller.ParallelControllerGui");
             parallelSampler.setProperty(TestElement.TEST_CLASS, "com.blazemeter.jmeter.controller.ParallelSampler");
 
