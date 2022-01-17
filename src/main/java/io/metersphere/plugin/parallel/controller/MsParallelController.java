@@ -37,9 +37,9 @@ public class MsParallelController extends MsTestElement {
         if (!this.isEnable()) {
             return;
         }
-        ParallelSampler initParallelSampler = initParallelSampler();
+        ParallelSampler initParallelSampler = initParallelSampler(config);
         if (initParallelSampler != null) {
-            final HashTree groupTree = tree.add(initParallelSampler());
+            final HashTree groupTree = tree.add(initParallelSampler);
             if (CollectionUtils.isNotEmpty(hashTree)) {
                 hashTree.forEach(el -> {
                     // 给所有孩子加一个父亲标志
@@ -53,16 +53,12 @@ public class MsParallelController extends MsTestElement {
         }
     }
 
-    public ParallelSampler initParallelSampler() {
+    public ParallelSampler initParallelSampler(MsParameter config) {
         try {
             ParallelSampler parallelSampler = new ParallelSampler();
             // base 执行时需要的参数
-            parallelSampler.setProperty("MS-ID", this.getId());
-            String indexPath = this.getIndex();
-            parallelSampler.setProperty("MS-RESOURCE-ID", this.getResourceId() + "_" + ElementUtil.getFullIndexPath(this.getParent(), indexPath));
-            List<String> id_names = new LinkedList<>();
-            ElementUtil.getScenarioSet(this, id_names);
-            parallelSampler.setProperty("MS-SCENARIO", JSON.toJSONString(id_names));
+            String id = StringUtils.isNotEmpty(this.getId()) ? this.getId() : this.getResourceId();
+            ElementUtil.setBaseParams(parallelSampler, this.getParent(), config, id, this.getIndex());
 
             parallelSampler.setEnabled(this.isEnable());
             String name = ElementUtil.getParentName(this.getParent());

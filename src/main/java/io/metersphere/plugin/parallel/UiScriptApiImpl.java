@@ -28,11 +28,11 @@ public class UiScriptApiImpl extends UiScriptApi  {
         script.setJmeterClazz("GenericController");
 
         // 添加可选参数
-        script.setFormOption(getJson("/json/ui_form.json"));
+        script.setFormOption(getJson("/json/parallel-ui_form.json"));
 
         uiScripts.add(script);
         LogUtil.info("初始化脚本内容结束 ");
-        return new PluginResource("parallel-v1.0.0", uiScripts);
+        return new PluginResource("parallel-v1.0.1", uiScripts);
     }
 
     @Override
