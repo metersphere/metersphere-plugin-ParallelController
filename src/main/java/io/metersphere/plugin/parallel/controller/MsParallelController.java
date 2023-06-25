@@ -9,6 +9,7 @@ import io.metersphere.plugin.parallel.utils.ElementUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jorphan.collections.HashTree;
@@ -69,8 +70,8 @@ public class MsParallelController extends MsTestElement {
             parallelSampler.setProperty(TestElement.TEST_CLASS, "com.blazemeter.jmeter.controller.ParallelSampler");
 
             parallelSampler.setProperty("PARENT_SAMPLE", false);
-            parallelSampler.setProperty("LIMIT_MAX_THREAD_NUMBER", this.getLimitMaxThread());
-            if (this.getLimitMaxThread() != null && this.getLimitMaxThread()) {
+            if (BooleanUtils.isTrue(this.getLimitMaxThread())) {
+                parallelSampler.setProperty("LIMIT_MAX_THREAD_NUMBER", true);
                 parallelSampler.setProperty("MAX_THREAD_NUMBER", this.getMaxThreads());
             }
 

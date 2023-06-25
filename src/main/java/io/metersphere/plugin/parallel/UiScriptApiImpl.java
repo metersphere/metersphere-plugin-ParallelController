@@ -32,7 +32,7 @@ public class UiScriptApiImpl extends UiScriptApi  {
 
         uiScripts.add(script);
         LogUtil.info("初始化脚本内容结束 ");
-        return new PluginResource("parallel-v1.0.1", uiScripts);
+        return new PluginResource("parallel-v1.0.2", uiScripts);
     }
 
     @Override
